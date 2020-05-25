@@ -19,7 +19,13 @@ public class PostService {
     public List<Post> listPost(){
 
         return posts;
- 
+     }
+
+     public Post getPostbyId(String id){
+
+        Post post = posts.stream().filter(t -> id.equals(t.getId())).findFirst().orElse(null);
+
+        return post;
      }
     
 }

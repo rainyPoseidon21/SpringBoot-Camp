@@ -15,8 +15,15 @@ public class LocationService {
         }
     };
 
-    public List<Location> getAllLocation(){
+     List<Location> getAllLocation(){
         return locationList;
+    }
+
+     Location getLocationById(String id){
+        
+        Location location = locationList.stream().filter(t-> id.equals(t.getId())).findFirst().orElse(null);
+
+        return location;
     }
     
 }
