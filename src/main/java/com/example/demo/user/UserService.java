@@ -29,5 +29,9 @@ public class UserService {
         return user;
     }
 
+	public void add(User user) {
+        userList.add(user);
+	}
+
     
 }

@@ -25,5 +25,9 @@ public class LocationService {
 
         return location;
     }
+
+	public void addLocation(Location location) {
+        locationList.add(location);
+	}
     
 }

@@ -10,10 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
 
-    Post p1 = new Post("p1", "pd1", new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com") ,"dp1");
-    Post p2 = new Post("p2", "pd2", new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"), "dp2");
+   // Post p1 = new Post("p1", "pd1", new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com") ,"dp1");
+    //Post p2 = new Post("p2", "pd2", new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"), "dp2");
  
-    private List<Post> posts =  Arrays.asList(p1,p2);
+    //private List<Post> posts =  Arrays.asList(p1,p2);
+
+    private List<Post> posts = new ArrayList<Post>(){
+        {
+            add(new Post("p1", "pd1", new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com") ,"dp1"));
+            add(new Post("p2", "pd2", new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"), "dp2"));
+        }
+    };
 
 
     public List<Post> listPost(){
@@ -27,5 +34,9 @@ public class PostService {
 
         return post;
      }
+
+	public void addPost(Post post) {
+		 posts.add(post);
+	}
     
 }
