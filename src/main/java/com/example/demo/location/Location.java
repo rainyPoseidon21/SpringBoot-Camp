@@ -1,10 +1,19 @@
 package com.example.demo.location;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Location {
     
-
+    @Id
     private String id;
     private String name;
+
+    //default constructor for JPA repo.
+    public Location(){
+
+    }
 
     public Location(String id,String name){
         this.id = id;

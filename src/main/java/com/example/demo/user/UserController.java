@@ -18,16 +18,40 @@ public class UserController {
     @RequestMapping(value="/users")
     public List<User> getAllUsers(){
         
-        return userService.getAllUser();
+        return userService.getAllUsers();
     }
 
     @RequestMapping(value ="/users/{id}")
-    public User getUser(@PathVariable String id){
-        return userService.getUser(id);
+    public Optional<User> getUser(@PathVariable String id){
+        return userService.getUserById(id);
     }
 
     @RequestMapping(value="/users",method = RequestMethod.POST)
     public void addUser(@RequestBody User user){
-        userService.add(user);
+        userService.addUser(user);
     }
+
+    @RequestMapping(value="/users/{id}",method=RequestMethod.PUT)
+    public void updateUser(@PathVariable String id, @RequestBody User user){
+        userService.updateUser(user, id);
+    }
+
+
+    @RequestMapping(value="/users/{id}",method=RequestMethod.DELETE)
+    public void deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
+    }
+
+
+    @RequestMapping(value="/users/location/{id}")
+    public List<User> getUserByLocationId(@PathVariable String id){
+        return userService.getUserByLocationId(id);
+    }
+
+    @RequestMapping(value="/users/firstName/{firstName}")
+    public List<User> getUsersByFirstName(@PathVariable String firstName){
+        return userService.getUsersByFirstName(firstName);
+    }
+
+   
 }

@@ -2,41 +2,46 @@ package com.example.demo.post;
 
 import java.util.*;
 
-import com.example.demo.location.*;
-import com.example.demo.user.*;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PostService {
 
-   // Post p1 = new Post("p1", "pd1", new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com") ,"dp1");
-    //Post p2 = new Post("p2", "pd2", new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"), "dp2");
- 
-    //private List<Post> posts =  Arrays.asList(p1,p2);
-
-    private List<Post> posts = new ArrayList<Post>(){
-        {
-            add(new Post("p1", "pd1", new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com") ,"dp1"));
-            add(new Post("p2", "pd2", new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"), "dp2"));
-        }
-    };
+    @Autowired
+    private PostRepository postRepository;
 
 
-    public List<Post> listPost(){
+    public List<Post> getAllPosts(){
+        
+        List<Post> posts = new ArrayList<>();
+        postRepository.findAll().forEach(posts::add);
 
         return posts;
-     }
+    }
 
-     public Post getPostbyId(String id){
+    public Optional<Post> getPostById(String id){
+        return  postRepository.findById(id);
+    }
 
-        Post post = posts.stream().filter(t -> id.equals(t.getId())).findFirst().orElse(null);
+    public void addPost(Post post){
+        postRepository.save(post);
+    }
 
-        return post;
-     }
 
-	public void addPost(Post post) {
-		 posts.add(post);
-	}
-    
+    public void updatePost(String id, Post post){
+        postRepository.save(post);
+    }
+
+    public void deletePost(String id){
+        postRepository.deleteById(id);
+    }
+
+    //custom func from interface
+    public List<Post> getPostsByUser(String id){
+        
+        List<Post> posts = new ArrayList<>();
+        postRepository.findByUserId(id).forEach(posts::add);
+        return posts;
+    }
 }

@@ -1,13 +1,26 @@
 package com.example.demo.post;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.example.demo.user.*;
 
+@Entity
 public class Post {
 
+    @Id
     private String id;
     private String postDate;
+
+    @ManyToOne
     private User user;
     private String details;
+
+    //default controller
+    Post(){
+
+    }
 
     Post(String id, String postDate, User user, String details){
         this.id = id;

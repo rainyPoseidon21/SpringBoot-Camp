@@ -2,32 +2,39 @@ package com.example.demo.location;
 
 import java.util.*;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LocationService {
 
-    private List<Location> locationList = new ArrayList<Location>(){
-        {
-            add(new Location("l1", "UK"));
-            add(new Location("l2","US"));
-        }
-    };
+    @Autowired
+    private LocationRepository locationRepository;
 
-     List<Location> getAllLocation(){
-        return locationList;
+    public List<Location> getAllLocation() {
+
+        List<Location> locations = new ArrayList<>();
+
+        locationRepository.findAll().forEach(locations::add);
+
+        return locations;
     }
 
-     Location getLocationById(String id){
-        
-        Location location = locationList.stream().filter(t-> id.equals(t.getId())).findFirst().orElse(null);
+    public Optional<Location> getLocation(String id) {
 
-        return location;
+        return locationRepository.findById(id);
     }
 
-	public void addLocation(Location location) {
-        locationList.add(location);
-	}
-    
+    public void addLocation(Location location){
+         locationRepository.save(location);
+    }
+
+    public void updateLocation(Location location, String id){
+        locationRepository.save(location);
+    }
+
+    public void deleteLocation(String id){
+        locationRepository.deleteById(id);
+    }
+
 }

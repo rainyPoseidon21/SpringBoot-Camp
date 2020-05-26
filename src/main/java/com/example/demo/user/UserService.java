@@ -2,35 +2,48 @@ package com.example.demo.user;
 
 import java.util.*;
 
-import com.example.demo.location.*;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Service
 public class UserService {
 
-    ArrayList<User> userList = new ArrayList<User>() {
-        {
-            add(new User("u1", "fn1", "ln1", new Location("l1","l1n"), "eu1@gmail.com"));
-            add(new User("u2", "fn2", "ln2", new Location("l2","l2n"), "eu2@gmail.com"));
-        }
-    };
 
-    public ArrayList<User> getAllUser(){
+    @Autowired  
+    private UserRepository userRepository;
 
-        return userList;
-    }
-
-    public User getUser(String id){
+    public List<User> getAllUsers(){
         
-        User user = userList.stream().filter(t -> id.equals(t.getId())).findFirst().orElse(null);
+        List<User> users = new ArrayList<>();
 
-        return user;
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
-	public void add(User user) {
-        userList.add(user);
+    public Optional<User> getUserById(String id){
+
+        return userRepository.findById(id);
+    }
+
+    public void addUser(User user){
+        userRepository.save(user);
+    }
+
+    
+    public void updateUser(User user, String id){
+        userRepository.save(user);
+    }    
+
+    public void deleteUser(String id){
+        userRepository.deleteById(id);
+    }
+
+	public List<User> getUserByLocationId(String id) {
+		return userRepository.findByLocationId(id);
+	}
+
+	public List<User> getUsersByFirstName(String firstName) {
+		return userRepository.findByFirstName(firstName);
 	}
 
     

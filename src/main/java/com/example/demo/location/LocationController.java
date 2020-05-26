@@ -15,20 +15,35 @@ public class LocationController {
     @Autowired
     private LocationService locationservice;
 
-
+    //(GET)
     @RequestMapping(value="/locations")
     public List<Location> getAllLocation(){
 
         return locationservice.getAllLocation();
     }
 
+    //get by id(GET)
     @RequestMapping(value="/locations/{id}")
-    public Location getLocationById(@PathVariable final String id) {
-        return locationservice.getLocationById(id);
+    public Optional<Location> getLocationById(@PathVariable final String id) {
+        return locationservice.getLocation(id);
     }
 
+    //(POST)
     @RequestMapping(value = "/locations", method = RequestMethod.POST)
     public void addLocation(@RequestBody Location location) {
         locationservice.addLocation(location);
+    }
+
+    //(PUT)
+
+    @RequestMapping(value="/locations/{id}", method = RequestMethod.PUT)
+    public void updateLocation(@RequestBody Location location, @PathVariable String id){
+        locationservice.updateLocation(location,id);
+    }
+
+    //(DELETE)
+    @RequestMapping(value="/locations/{id}",method=RequestMethod.DELETE)
+    public void deleteLocation(@PathVariable String id){
+        locationservice.deleteLocation(id);
     }
 }
