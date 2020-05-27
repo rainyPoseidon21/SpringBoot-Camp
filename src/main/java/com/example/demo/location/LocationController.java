@@ -3,13 +3,15 @@ package com.example.demo.location;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class LocationController {
 
     @Autowired
@@ -17,9 +19,13 @@ public class LocationController {
 
     //(GET)
     @RequestMapping(value="/locations")
-    public List<Location> getAllLocation(){
+    public String getAllLocation(Model model){
+        
+        List<Location> locations = locationservice.getAllLocation();
+        model.addAttribute("locations",locations);
 
-        return locationservice.getAllLocation();
+        return "locations";
+        //return locationservice.getAllLocation();
     }
 
     //get by id(GET)
