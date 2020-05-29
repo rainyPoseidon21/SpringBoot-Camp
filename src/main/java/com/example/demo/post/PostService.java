@@ -38,10 +38,10 @@ public class PostService {
     }
 
     //custom func from interface
-    public List<Post> getPostsByUser(String id){
+    // public List<Post> getPostsByUser(Integer id){
         
-        List<Post> posts = new ArrayList<>();
-        postRepository.findByUserId(id).forEach(posts::add);
-        return posts;
-    }
+    //     List<Post> posts = new ArrayList<>();
+    //     postRepository.findByUserId(id).forEach(posts::add);
+    //     return posts;
+    // }
 }
